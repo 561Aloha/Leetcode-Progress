@@ -1,0 +1,47 @@
+class Solution(object):
+    def sortArray(self, nums):
+        # Base case: an array of length 1 or empty is already sorted
+        if len(nums) <= 1:
+            return nums
+
+        # Find the middle index to divide the array
+        mid = len(nums) // 2
+
+        # Recursively sort both halves
+        left = self.sortArray(nums[:mid])
+        right = self.sortArray(nums[mid:])
+
+        # Merge the two sorted halves
+        return self.merge(left, right)
+
+    def merge(self, left, right):
+        sorted_array = []
+        i = j = 0
+
+        # Merge the two arrays by comparing elements
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                sorted_array.append(left[i])
+                i += 1
+            else:
+                sorted_array.append(right[j])
+                j += 1
+
+        # Append the remaining elements from both halves
+        sorted_array.extend(left[i:])
+        sorted_array.extend(right[j:])
+
+        return sorted_array
+
+
+# Edge cases are if there is 0 or one elements in the array. Then the work is done/sorted.
+# We need to define the middle in order to split the array in two. both the left and right sides. 
+# We recursively call for the divide and conquer.
+
+
+# Function Merge() this starts at the first index both on the left and right array to compare the two.
+# In the if condition, if the statement where the left array element is less then on the right array's element,
+# Then we add it to the sorted array and move the pointer by 1 (this is i) to compare the next left arrays element to that same right array.
+# The reversal can be done where we move the right pointer (j) if the left array's element is actually bigger, since we are sorting the array from smallest to  biggest.
+
+#Any remaining portions as mentioned, is just edded to the end of the sorted array
